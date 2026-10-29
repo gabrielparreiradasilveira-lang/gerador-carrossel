@@ -1,0 +1,27 @@
+{
+  "aviso": "CONTEÚDO DE EXEMPLO — revisar",
+  "handlePadrao": "@gparreiraaa",
+  "papeis": {
+    "gancho":    { "rotulo": "Gancho",            "selo": "",                    "titulo": "[Frase que prende sobre {tema}]", "texto": "[Promessa do carrossel em 1 linha: o que a pessoa vai entender sobre {tema}]" },
+    "problema":  { "rotulo": "Problema",          "selo": "ONDE A GALERA ERRA",  "titulo": "[A confusão comum sobre {tema}]", "texto": "[Descreva em 2 ou 3 linhas a dúvida ou o erro que você mais vê em aula]" },
+    "conceito":  { "rotulo": "Conceito",          "selo": "O CONCEITO",          "titulo": "O que é {tema}", "texto": "[Definição em 2 ou 3 linhas, com as suas palavras. Confira na sua apostila/norma antes de publicar]" },
+    "exemplo":   { "rotulo": "Exemplo",           "selo": "NA PRÁTICA",          "titulo": "[Título do exemplo]", "texto": "[Situação do dia a dia que mostra {tema} funcionando]" },
+    "pegadinha": { "rotulo": "Pegadinha de prova","selo": "PEGADINHA DE PROVA",  "titulo": "[Como a {cert} costuma cobrar {tema}]", "texto": "[Onde está a armadilha e como reconhecer a alternativa certa]" },
+    "resumo":    { "rotulo": "Resumo",            "selo": "RESUMO",              "titulo": "Pra levar pra prova", "texto": "- [Ponto 1]\n- [Ponto 2]\n- [Ponto 3]" },
+    "extra":     { "rotulo": "Conteúdo extra",    "selo": "MAIS UM DETALHE",     "titulo": "[Detalhe extra sobre {tema}]", "texto": "[Complemento em 2 ou 3 linhas]" },
+    "cta":       { "rotulo": "CTA",               "selo": "",                    "titulo": "Salva pra revisar antes da {cert}", "texto": "[Chamada final: seguir {handle}, comentar uma dúvida ou mandar pra quem vai fazer a prova]" }
+  },
+  "estruturaPorQuantidade": {
+    "5":  ["gancho","problema","conceito","pegadinha","cta"],
+    "6":  ["gancho","problema","conceito","exemplo","pegadinha","cta"],
+    "7":  ["gancho","problema","conceito","exemplo","pegadinha","resumo","cta"],
+    "8":  ["gancho","problema","conceito","extra","exemplo","pegadinha","resumo","cta"],
+    "9":  ["gancho","problema","conceito","extra","exemplo","extra","pegadinha","resumo","cta"],
+    "10": ["gancho","problema","conceito","extra","exemplo","extra","pegadinha","extra","resumo","cta"]
+  },
+  "paletas": [
+    { "nome": "Marinho & dourado", "fundo": "#0f1b33", "texto": "#f4f1ea", "destaque": "#f2b632" },
+    { "nome": "Papel editorial",   "fundo": "#f6f1e7", "texto": "#1c1c1c", "destaque": "#d9480f" },
+    { "nome": "Verde mercado",     "fundo": "#0c3b2e", "texto": "#effaf2", "destaque": "#9be37a" }
+  ]
+}
