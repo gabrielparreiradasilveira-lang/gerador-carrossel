@@ -18,7 +18,7 @@ h1{font-family:PMont,Montserrat,sans-serif;font-size:20px;margin:0 0 6px}
 .sec{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}
 .sec h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin:0 0 8px}
 label{display:block;font-size:12.5px;color:var(--mut);margin:8px 0 3px;font-weight:700}
-input[type=text],input[type=number],select,textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:#fbfbfd;color:var(--txt)}
+input[type=text],input[type=number],input[type=password],select,textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:#fbfbfd;color:var(--txt)}
 textarea{resize:vertical;line-height:1.35}
 .row{display:flex;gap:10px}.row>*{flex:1}
 .btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 12px;font-weight:700;cursor:pointer;color:var(--txt)}
@@ -50,6 +50,33 @@ main{display:grid;grid-template-rows:auto 1fr auto;min-width:0;min-height:0}
 .thumbs canvas.on{border-color:var(--acc)}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1b2333;color:#fff;padding:10px 16px;border-radius:8px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.on{opacity:1}
+/* ---- IA, contadores e conferência ---- */
+.amostra.okd{background:#e7f6ec;color:#1b7f3b;border-color:#a6dcb6}
+.st{font-size:12.5px;color:var(--mut);margin-top:6px;min-height:16px;line-height:1.35}
+.st.err{color:#c62828;font-weight:700}.st.ok{color:#1b7f3b}
+.btn:disabled{opacity:.55;cursor:wait}
+details.cfg{border:1px solid var(--line);border-radius:8px;padding:6px 10px 10px;margin-top:8px;background:#fbfbfd}
+details.cfg summary{cursor:pointer;font-weight:700;font-size:13px;padding:2px 0}
+.cors{font-size:12px;margin-top:4px}.cors.sim{color:#1b7f3b}.cors.nao{color:#c62828;font-weight:700}
+.nota{font-size:11.5px;color:var(--mut);line-height:1.45;margin-top:6px}
+.ganchos .g{border:2px solid var(--line);border-radius:8px;padding:8px 10px;margin-top:6px;cursor:pointer;background:#fff;font-size:12.5px;line-height:1.35}
+.ganchos .g.on{border-color:var(--acc);box-shadow:0 0 0 2px #2f5bea22}
+.ganchos .g b{display:block;font-size:13px;margin-bottom:2px}
+.ganchos .g small{color:var(--acc);font-weight:700;font-size:11px;letter-spacing:.04em}
+.hl{position:relative;background:#fbfbfd;border-radius:8px}
+.hl .bk{position:absolute;inset:0;padding:8px 10px;border:1px solid transparent;white-space:pre-wrap;overflow-wrap:break-word;color:transparent;overflow:hidden;line-height:1.35;font-size:14px;pointer-events:none;border-radius:8px}
+.hl .bk mark{background:#ffd3d3;color:transparent;border-radius:3px;box-shadow:0 0 0 1px #e53935}
+.hl .bk mark.p{background:#ff9e9e}
+.hl textarea{position:relative;background:transparent;display:block}
+.sl .h .rf{padding:4px 9px;font-size:12px;flex:0 0 auto}
+.cnt{font-size:11px;color:var(--mut);text-align:right;margin-top:2px}
+.cnt.av{color:#b34700;font-weight:700}.cnt.er{color:#c62828;font-weight:700}
+.fc{list-style:none;margin:6px 0 0;padding:0;max-height:170px;overflow-y:auto}
+.fc li{font-size:12px;padding:4px 6px;border-radius:6px;cursor:pointer;border-left:3px solid #e53935;margin-bottom:3px;background:#fff6f6}
+.fc li.p{border-left-color:#8e0000;background:#ffe3e3;font-weight:700}
+.fc li em{font-style:normal;color:#c62828;font-weight:700}
+.chk{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--txt);margin-top:10px;cursor:pointer}
+.chk input{width:18px;height:18px}
 </style>
 </head>
 <body>
@@ -92,9 +119,9 @@ main{display:grid;grid-template-rows:auto 1fr auto;min-width:0;min-height:0}
 
 <aside>
   <h1>Gerador de Carrossel</h1>
-  <span class="amostra">CONTEÚDO DE EXEMPLO — revisar</span>
+  <span class="amostra" id="selo">CONTEÚDO DE EXEMPLO — revisar</span>
   <div class="sec" style="border:0;margin-top:4px">
-    <label for="iTema">Tema do carrossel</label>
+    <label for="iTema">Título / tema do carrossel</label>
     <input type="text" id="iTema" value="Liquidez" placeholder="Ex.: Liquidez">
     <div class="row">
       <div><label for="iCert">Certificação</label>
@@ -103,7 +130,28 @@ main{display:grid;grid-template-rows:auto 1fr auto;min-width:0;min-height:0}
     </div>
     <label for="iHandle">Perfil</label>
     <input type="text" id="iHandle" value="@gparreiraaa">
-    <div style="margin-top:10px"><button class="btn pri" id="bModelo" style="width:100%">Preencher estrutura (gancho → CTA) com textos-guia</button></div>
+    <div style="margin-top:10px"><button class="btn" id="bModelo" style="width:100%">Preencher estrutura (gancho → CTA) com textos-guia</button></div>
+  </div>
+  <div class="sec" id="secIA">
+    <h2>Textos com IA</h2>
+    <button class="btn pri" id="bIA" style="width:100%">Gerar textos com IA a partir do título</button>
+    <div class="st" id="stIA"></div>
+    <details class="cfg" id="cfg">
+      <summary>Configurar IA (provedor e chave)</summary>
+      <label for="iProv">Provedor</label><select id="iProv"></select>
+      <div class="cors" id="corsProv"></div>
+      <label for="iModelo">Modelo</label><input type="text" id="iModelo" spellcheck="false">
+      <label for="iChave">Chave de API</label><input type="password" id="iChave" autocomplete="off" spellcheck="false">
+      <div class="row" style="margin-top:8px"><button class="btn" id="bSalvarChave">Salvar chave</button><button class="btn" id="bEsquecer">Esquecer chave</button></div>
+      <div class="nota" id="notaChave">A chave fica só neste navegador (localStorage), separada por provedor. Ela não vai para o arquivo, para o .zip nem para o GitHub. Riscos: quem usar este computador/navegador ou uma extensão com acesso à página pode lê-la. Use uma chave só para isto, com limite de gasto, e clique em “Esquecer chave” em computador compartilhado.</div>
+    </details>
+    <div class="ganchos" id="ganchos"></div>
+  </div>
+  <div class="sec">
+    <h2>Conferência de dados</h2>
+    <div class="nota" id="fcRes" style="margin-top:0"></div>
+    <ul class="fc" id="fcLista"></ul>
+    <label class="chk"><input type="checkbox" id="iConferi"> Conferi os dados deste carrossel</label>
   </div>
   <div class="sec">
     <h2>Visual</h2>
@@ -218,7 +266,7 @@ function desenhar(ctx, s, i, n) {
     return { ts, bs, lt, lb, hSelo, hT, hB, total: hSelo + hT + hB };
   };
   do { blocos = medir(esc); if (blocos.total <= base - topo) break; esc -= 0.04; } while (esc > 0.55);
-  s._reduzido = esc < 0.99;
+  s._reduzido = esc < 0.99; s._esc = esc; s._estoura = blocos.total > base - topo;
   let y = Math.max(topo, topo + (base - topo - blocos.total) * (capa || cta ? .5 : .32));
   if (selo) {
     ctx.font = '800 28px PMont, Montserrat, sans-serif'; ctx.fillStyle = C.destaque;
@@ -265,6 +313,7 @@ function renderTudo() {
   [...th.children].forEach((t, i) => { const c = t.getContext('2d'); c.drawImage(cvs[i], 0, 0, 216, 270); t.classList.toggle('on', i === E.atual); t.title = 'Slide ' + (i + 1); });
   document.querySelectorAll('.sl').forEach((d, i) => { d.classList.toggle('on', i === E.atual); d.querySelector('.warn').classList.toggle('on', !!E.slides[i]._reduzido); });
   $('info').textContent = `Slide ${E.atual + 1} de ${n} · ${(MODELO.papeis[E.slides[E.atual].papel] || {}).rotulo || ''} · 1080×1350`;
+  atualizarContadores(); renderConferencia();
 }
 function selecionar(i) { E.atual = i; atualizar(); const d = document.querySelectorAll('.sl')[i]; if (d && document.activeElement && !d.contains(document.activeElement)) d.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
 
@@ -272,13 +321,21 @@ function renderEditores() {
   const opts = Object.entries(MODELO.papeis).map(([k, v]) => `<option value="${k}">${v.rotulo}</option>`).join('');
   $('slides').innerHTML = E.slides.map((s, i) => `
     <div class="sl" data-i="${i}">
-      <div class="h"><b>${i + 1}</b><select data-f="papel" aria-label="Tipo do slide ${i + 1}">${opts}</select></div>
-      <textarea data-f="titulo" rows="2" aria-label="Título do slide ${i + 1}"></textarea>
-      <textarea data-f="texto" rows="3" aria-label="Texto do slide ${i + 1}" style="margin-top:6px"></textarea>
+      <div class="h"><b>${i + 1}</b><select data-f="papel" aria-label="Tipo do slide ${i + 1}">${opts}</select><button class="btn rf" data-rf="${i}" title="Pede à IA um novo texto só para este slide, mantendo os outros">↻ refazer</button></div>
+      <div class="hl"><div class="bk"></div><textarea data-f="titulo" rows="2" aria-label="Título do slide ${i + 1}"></textarea></div>
+      <div class="cnt" data-c="titulo"></div>
+      <div class="hl" style="margin-top:4px"><div class="bk"></div><textarea data-f="texto" rows="3" aria-label="Texto do slide ${i + 1}"></textarea></div>
+      <div class="cnt" data-c="texto"></div>
       <div class="warn">Texto longo: a fonte deste slide foi reduzida para caber.</div>
     </div>`).join('');
   document.querySelectorAll('.sl').forEach((d, i) => {
-    d.querySelectorAll('[data-f]').forEach(el => { el.value = E.slides[i][el.dataset.f]; el.oninput = () => { E.slides[i][el.dataset.f] = el.value; E.atual = i; atualizar(); }; });
+    d.querySelector('[data-rf]').onclick = ev => { ev.stopPropagation(); refazer(i); };
+    d.querySelectorAll('[data-f]').forEach(el => {
+      el.value = E.slides[i][el.dataset.f];
+      const bk = el.previousElementSibling && el.previousElementSibling.classList.contains('bk') ? el.previousElementSibling : null;
+      if (bk) { bk.innerHTML = hlHTML(el.value); el.onscroll = () => { bk.scrollTop = el.scrollTop; }; }
+      el.oninput = () => { E.slides[i][el.dataset.f] = el.value; if (bk) { bk.innerHTML = hlHTML(el.value); bk.scrollTop = el.scrollTop; } E.atual = i; atualizar(); };
+    });
     d.addEventListener('focusin', () => { if (E.atual !== i) { E.atual = i; atualizar(); } });
     d.onclick = () => { if (E.atual !== i) { E.atual = i; atualizar(); } };
   });
@@ -300,7 +357,7 @@ $('iN').onchange = e => { const n = Math.max(5, Math.min(10, Math.round(+e.targe
 $('bModelo').onclick = () => {
   const editado = E.slides.some(s => !/^\[|^O que é|^Pra levar|^Salva/.test(s.titulo));
   if (editado && !confirm('Isso troca o texto de todos os slides pelos textos-guia. Continuar?')) return;
-  aplicarModelo(Math.max(5, Math.min(10, +$('iN').value || 7))); renderEditores(); atualizar(); toast('Estrutura preenchida. Troque os [colchetes] pelo seu conteúdo.');
+  aplicarModelo(Math.max(5, Math.min(10, +$('iN').value || 7))); E.origem = 'guia'; E.ganchos = []; E.conferido = false; renderGanchos(); renderEditores(); atualizar(); toast('Estrutura preenchida. Troque os [colchetes] pelo seu conteúdo.');
 };
 $('bAnt').onclick = () => selecionar((E.atual - 1 + E.slides.length) % E.slides.length);
 $('bProx').onclick = () => selecionar((E.atual + 1) % E.slides.length);
@@ -330,19 +387,307 @@ function zip(arquivos) { // método "store" (PNG já é comprimido)
   [[0, 0x06054b50, 4], [8, arquivos.length, 2], [10, arquivos.length, 2], [12, tamC, 4], [16, off, 4]].forEach(([o, v, s]) => s === 4 ? fim.setUint32(o, v, true) : fim.setUint16(o, v, true));
   return new Blob([...partes, ...central, new Uint8Array(fim.buffer)], { type: 'application/zip' });
 }
-$('bPng').onclick = async () => { baixar(await pngBlob(E.atual), nomeArq(E.atual)); toast('PNG 1080×1350 baixado.'); };
-$('bTodos').onclick = async () => { for (let i = 0; i < E.slides.length; i++) { baixar(await pngBlob(i), nomeArq(i)); await new Promise(r => setTimeout(r, 350)); } toast(E.slides.length + ' PNGs baixados (o navegador pode pedir permissão para vários downloads).'); };
+$('bPng').onclick = async () => { if (!liberarExport()) return; baixar(await pngBlob(E.atual), nomeArq(E.atual)); toast('PNG 1080×1350 baixado.'); };
+$('bTodos').onclick = async () => { if (!liberarExport()) return; for (let i = 0; i < E.slides.length; i++) { baixar(await pngBlob(i), nomeArq(i)); await new Promise(r => setTimeout(r, 350)); } toast(E.slides.length + ' PNGs baixados (o navegador pode pedir permissão para vários downloads).'); };
 $('bZip').onclick = async () => {
+  if (!liberarExport()) return;
   const arqs = []; for (let i = 0; i < E.slides.length; i++) arqs.push({ nome: nomeArq(i), dados: new Uint8Array(await (await pngBlob(i)).arrayBuffer()) });
   baixar(zip(arqs), `carrossel-${slug()}.zip`); toast('.zip com ' + arqs.length + ' slides baixado.');
 };
 let tt; function toast(m) { $('toast').textContent = m; $('toast').classList.add('on'); clearTimeout(tt); tt = setTimeout(() => $('toast').classList.remove('on'), 2600); }
 
+/* ---------------- IA: textos a partir do título (chave só no navegador) ---------------- */
+// CORS testado em 29/10/2026 (preflight OPTIONS com Origin do GitHub Pages e Origin "null" de arquivo local): os 4 liberam.
+const PROV = {
+  xai:       { nome: 'xAI (Grok)',         modelo: 'grok-4.3',          tipo: 'oai', url: 'https://api.x.ai/v1/chat/completions',       navegador: true },
+  openai:    { nome: 'OpenAI',             modelo: 'gpt-6.1-sol',       tipo: 'oai', url: 'https://api.openai.com/v1/chat/completions', navegador: true },
+  anthropic: { nome: 'Anthropic (Claude)', modelo: 'claude-sonnet-5-5', tipo: 'ant', url: 'https://api.anthropic.com/v1/messages',      navegador: true },
+  gemini:    { nome: 'Google Gemini',      modelo: 'gemini-3.8-flash',  tipo: 'gem', url: 'https://generativelanguage.googleapis.com/v1beta/models/{modelo}:generateContent', navegador: true }
+};
+const CFG_K = 'gerador-carrossel-ia', CH_K = p => 'gerador-carrossel-ia-chave-' + p;
+let CFG = (() => { try { return Object.assign({ prov: 'xai', modelos: {} }, JSON.parse(localStorage.getItem(CFG_K)) || {}); } catch (_) { return { prov: 'xai', modelos: {} }; } })();
+if (!PROV[CFG.prov]) CFG.prov = 'xai';
+const salvarCfg = () => { try { localStorage.setItem(CFG_K, JSON.stringify(CFG)); } catch (_) {} };
+const lerChave = () => { try { return localStorage.getItem(CH_K(CFG.prov)) || ''; } catch (_) { return ''; } };
+const modeloAtual = () => (CFG.modelos[CFG.prov] || PROV[CFG.prov].modelo).trim();
+class ErroIA extends Error { constructor(tipo, msg) { super(msg); this.tipo = tipo; } }
+
+const SISTEMA = `Você escreve os textos de carrosséis de Instagram de um professor de certificações financeiras ANBIMA (CPA, C-Pro R e C-Pro I). Público: pessoas que estão entrando no mercado financeiro e vão fazer a prova.
+
+TOM
+- Técnico no padrão ANBIMA, didático e claro. Português do Brasil. Frases curtas e diretas.
+- Sem emojis, sem hashtags, sem exageros de marketing.
+
+ESTRUTURA
+Siga exatamente a lista de papéis recebida, na ordem. A sequência-base é gancho → problema → conceito → exemplo → pegadinha de prova → CTA, adaptada ao número de slides:
+- gancho: frase que prende e diz o que a pessoa vai entender.
+- problema: a confusão ou o erro mais comum sobre o tema.
+- conceito: definição clara e correta, sem jargão desnecessário.
+- extra: um detalhe complementar do conceito (não repita outro slide).
+- exemplo: situação concreta do dia a dia que mostra o conceito funcionando.
+- pegadinha: como a prova costuma cobrar o tema no estilo ANBIMA/Cesgranrio e como reconhecer a alternativa certa.
+- resumo: exatamente 3 linhas, cada uma começando com "- ".
+- cta: chamada final para salvar, comentar uma dúvida, mandar para quem vai fazer a prova ou seguir o perfil informado.
+
+TAMANHO (o texto precisa caber no slide)
+- Título: no máximo 60 caracteres.
+- Texto: no máximo 220 caracteres. No gancho e no CTA, no máximo 120. No resumo, 3 linhas de até 60 caracteres.
+
+REGRAS OBRIGATÓRIAS
+1. Não escreva números, taxas, percentuais, valores em R$, prazos, datas, anos, leis, normas, resoluções, instruções, artigos, ofícios ou citações, a não ser que o dado esteja no título enviado pelo professor. Quando o texto precisar de um número ou de uma norma, escreva exatamente [DADO A CONFERIR] no lugar.
+2. Não invente fatos, nomes de produtos, órgãos ou regras. Na dúvida, use linguagem conceitual ou o marcador [DADO A CONFERIR].
+3. Nunca mencione FGV nem as certificações CPA-10, CPA-20 ou CEA (descontinuadas). Fale só de CPA, C-Pro R ou C-Pro I.
+4. Fale só do conteúdo. Não fale do professor, da carreira ou do trabalho dele.
+5. Se houver cálculo financeiro, siga a lógica da HP12C (fluxos de caixa com sinal: saída negativa, entrada positiva), sem inventar valores.
+
+SAÍDA
+Responda somente com um objeto JSON válido, sem markdown, sem comentários e sem texto antes ou depois.`;
+
+function promptCarrossel(papeis) {
+  return `Título do carrossel: ${E.tema || '(sem título)'}
+Certificação: ${E.cert}
+Perfil para o CTA: ${E.handle || '(sem perfil)'}
+Número de slides: ${papeis.length}
+Papéis, na ordem: ${papeis.map((p, i) => `${i + 1}. ${p}`).join(' | ')}
+
+Devolva exatamente este formato:
+{"ganchos":[{"titulo":"...","texto":"..."},{"titulo":"...","texto":"..."},{"titulo":"...","texto":"..."}],"slides":[{"papel":"${papeis[0]}","titulo":"...","texto":"..."}]}
+- "ganchos": 3 variações bem diferentes para o slide 1 (uma em forma de pergunta, uma partindo do erro comum, uma com promessa direta).
+- "slides": exatamente ${papeis.length} itens, um para cada papel, na ordem acima. O slide 1 repete a primeira variação de gancho.
+- No texto, quebre linha com \\n. Itens de lista começam com "- ".`;
+}
+const semInternos = s => ({ papel: s.papel, titulo: s.titulo, texto: s.texto });
+function promptRefazer(i) {
+  return `Título do carrossel: ${E.tema || '(sem título)'}
+Certificação: ${E.cert}
+Perfil para o CTA: ${E.handle || '(sem perfil)'}
+Carrossel atual (contexto; NÃO reescreva os outros slides):
+${JSON.stringify(E.slides.map((s, k) => ({ n: k + 1, ...semInternos(s) })))}
+
+Reescreva somente o slide ${i + 1} (papel "${E.slides[i].papel}") com outra abordagem, coerente com os slides vizinhos e sem repetir o que eles já dizem.
+Devolva exatamente: {"titulo":"...","texto":"..."}`;
+}
+
+async function chamarIA(sistema, usuario) {
+  const P = PROV[CFG.prov], k = lerChave(), modelo = modeloAtual();
+  if (!P.navegador) throw new ErroIA('cors', `${P.nome} não aceita chamadas direto do navegador.`);
+  if (!k) throw new ErroIA('sem-chave', 'Sem chave de API. Abra “Configurar IA” e cole a chave, ou use “Preencher estrutura” (funciona sem IA).');
+  let url = P.url, body; const headers = { 'content-type': 'application/json' };
+  if (P.tipo === 'oai') { headers.authorization = 'Bearer ' + k; body = { model: modelo, messages: [{ role: 'system', content: sistema }, { role: 'user', content: usuario }], response_format: { type: 'json_object' } }; }
+  else if (P.tipo === 'ant') { headers['x-api-key'] = k; headers['anthropic-version'] = '2023-06-01'; headers['anthropic-dangerous-direct-browser-access'] = 'true'; body = { model: modelo, max_tokens: 4096, system: sistema, messages: [{ role: 'user', content: usuario }] }; }
+  else { url = url.replace('{modelo}', encodeURIComponent(modelo)); headers['x-goog-api-key'] = k; body = { systemInstruction: { parts: [{ text: sistema }] }, contents: [{ role: 'user', parts: [{ text: usuario }] }], generationConfig: { responseMimeType: 'application/json' } }; }
+  const ac = new AbortController(), to = setTimeout(() => ac.abort(), 120000);
+  let r;
+  try { r = await fetch(url, { method: 'POST', headers, body: JSON.stringify(body), signal: ac.signal }); }
+  catch (e) { throw new ErroIA('rede', e && e.name === 'AbortError' ? 'A IA demorou mais de 2 minutos. Tente de novo.' : `Não consegui falar com ${P.nome}. Verifique a internet.`); }
+  finally { clearTimeout(to); }
+  const bruto = await r.text(); let j = null; try { j = JSON.parse(bruto); } catch (_) {}
+  const tirarChave = t => String(t).split(k).join('•••');
+  if (!r.ok) {
+    const det = j && (j.error && (j.error.message || (typeof j.error === 'string' && j.error)) || j.message) || bruto.slice(0, 200);
+    const base = r.status === 401 || r.status === 403 ? `Chave recusada por ${P.nome} (HTTP ${r.status}).`
+      : r.status === 429 ? `Limite de uso ou crédito esgotado em ${P.nome} (HTTP 429).`
+      : r.status === 404 ? `Modelo “${modelo}” não encontrado. Confira o nome do modelo (HTTP 404).`
+      : `${P.nome} respondeu com erro (HTTP ${r.status}).`;
+    throw new ErroIA('http', tirarChave(base + ' ' + String(det || '').slice(0, 180)).trim());
+  }
+  if (!j) throw new ErroIA('resposta', `${P.nome} devolveu uma resposta que não é JSON.`);
+  let out = '';
+  try {
+    if (P.tipo === 'oai') out = j.choices[0].message.content;
+    else if (P.tipo === 'ant') out = j.content.filter(c => c.type === 'text').map(c => c.text).join('');
+    else out = j.candidates[0].content.parts.filter(x => x.text && !x.thought).map(x => x.text).join('');
+  } catch (_) {}
+  if (!out || !String(out).trim()) throw new ErroIA('vazio', 'A IA devolveu uma resposta vazia. Tente de novo.');
+  return String(out);
+}
+
+// Conserta os defeitos comuns: cercas ```json, texto em volta, quebra de linha crua dentro de string, vírgula sobrando.
+function reparar(txt) {
+  let s = String(txt == null ? '' : txt).replace(/^\uFEFF/, '').trim().replace(/^```[a-zA-Z]*\s*/, '').replace(/\s*```\s*$/, '');
+  const a = s.indexOf('{'), b = s.lastIndexOf('}');
+  if (a < 0 || b < a) throw new ErroIA('json', 'A IA não devolveu JSON. Clique em gerar de novo.');
+  s = s.slice(a, b + 1);
+  try { return JSON.parse(s); } catch (_) {}
+  let o = '', dentro = false, esc = false;
+  for (const c of s) {
+    if (dentro) {
+      if (esc) { o += c; esc = false; continue; }
+      if (c === '\\') { o += c; esc = true; continue; }
+      if (c === '"') { dentro = false; o += c; continue; }
+      if (c === '\n') { o += '\\n'; continue; }
+      if (c === '\r') continue;
+      if (c === '\t') { o += '\\t'; continue; }
+      o += c;
+    } else { if (c === '"') dentro = true; o += c; }
+  }
+  o = o.replace(/,\s*([}\]])/g, '$1');
+  try { return JSON.parse(o); } catch (_) { throw new ErroIA('json', 'A IA devolveu um JSON inválido e não deu para consertar. Clique em gerar de novo.'); }
+}
+const limpa = v => String(v == null ? '' : v).replace(/\r/g, '').replace(/^\s*•\s+/gm, '- ').replace(/[ \t]+\n/g, '\n').trim();
+function validarCarrossel(o, papeis) {
+  if (!o || typeof o !== 'object' || !Array.isArray(o.slides)) throw new ErroIA('formato', 'A resposta da IA veio sem a lista "slides".');
+  const sl = o.slides.filter(x => x && typeof x === 'object');
+  if (sl.length < papeis.length) throw new ErroIA('formato', `A IA devolveu ${sl.length} slides, mas eu pedi ${papeis.length}. Tente de novo.`);
+  const slides = sl.slice(0, papeis.length).map((x, i) => ({ papel: papeis[i], titulo: limpa(x.titulo), texto: limpa(x.texto) }));
+  const vazio = slides.findIndex(x => !x.titulo);
+  if (vazio >= 0) throw new ErroIA('formato', `O slide ${vazio + 1} veio sem título. Tente de novo.`);
+  let ganchos = (Array.isArray(o.ganchos) ? o.ganchos : []).filter(x => x && typeof x === 'object').map(x => ({ titulo: limpa(x.titulo), texto: limpa(x.texto) })).filter(x => x.titulo).slice(0, 3);
+  const ig = papeis.indexOf('gancho');
+  if (!ganchos.length && ig >= 0) ganchos = [{ titulo: slides[ig].titulo, texto: slides[ig].texto }];
+  return { slides, ganchos };
+}
+function validarSlide(o) {
+  const x = o && (o.slide || (Array.isArray(o.slides) && o.slides[0]) || o);
+  if (!x || typeof x !== 'object' || !limpa(x.titulo)) throw new ErroIA('formato', 'A IA não devolveu título e texto para o slide. Tente de novo.');
+  return { titulo: limpa(x.titulo), texto: limpa(x.texto) };
+}
+
+/* ---- marcação de dados a conferir ---- */
+const RX_DADO = /\[DADO A CONFERIR\]|R\$\s?\d[\d.,]*|R\$|\d+(?:[.,]\d+)*\s?%|\d+(?:[.,]\d+)*|%|\b(?:Lei|Resolução|Resolucao|Instrução|Instrucao|CVM|Bacen|BCB)(?![\p{L}\p{N}])|\bart\.(?:\s?\d+)?/giu;
+const RX_PROIB = /\bFGV\b|\bCPA[\s-]?(?:10|20)\b|\bCEA\b/g;
+function marcas(t) {
+  t = String(t || ''); const m = [];
+  for (const x of t.matchAll(RX_PROIB)) m.push({ ini: x.index, fim: x.index + x[0].length, t: x[0], tipo: 'p' });
+  for (const x of t.matchAll(RX_DADO)) m.push({ ini: x.index, fim: x.index + x[0].length, t: x[0], tipo: 'd' });
+  m.sort((a, b) => a.ini - b.ini || (a.tipo === 'p' ? -1 : 1));
+  const r = []; for (const x of m) if (!r.length || x.ini >= r[r.length - 1].fim) r.push(x);
+  return r;
+}
+const escH = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+function hlHTML(t) {
+  t = String(t || ''); let o = '', p = 0;
+  for (const x of marcas(t)) { o += escH(t.slice(p, x.ini)) + `<mark class="${x.tipo}">${escH(x.t)}</mark>`; p = x.fim; }
+  return o + escH(t.slice(p)) + '\n ';
+}
+function todasMarcas() {
+  const r = [];
+  E.slides.forEach((s, i) => ['titulo', 'texto'].forEach(f => marcas(s[f]).forEach(x => r.push({ ...x, i, f }))));
+  return r;
+}
+function renderConferencia() {
+  const ms = todasMarcas(), proib = ms.filter(x => x.tipo === 'p').length, marc = ms.filter(x => /^\[DADO/.test(x.t)).length;
+  $('fcRes').innerHTML = ms.length
+    ? `<b style="color:#c62828">${ms.length} trecho${ms.length > 1 ? 's' : ''} para conferir</b>${marc ? ` · ${marc} [DADO A CONFERIR]` : ''}${proib ? ` · <b style="color:#8e0000">${proib} termo${proib > 1 ? 's' : ''} proibido${proib > 1 ? 's' : ''}</b>` : ''}. Números, %, R$, anos, leis e normas ficam em vermelho no editor.`
+    : 'Nenhum número, norma ou marcador encontrado. Ainda assim, leia o texto antes de publicar.';
+  const sig = ms.map(x => x.i + x.f + x.ini + x.t).join('|');
+  if ($('fcLista').dataset.sig !== sig) {
+    $('fcLista').dataset.sig = sig;
+    $('fcLista').innerHTML = ms.slice(0, 40).map(x => `<li class="${x.tipo}" data-i="${x.i}" data-f="${x.f}">Slide ${x.i + 1} · ${x.f === 'titulo' ? 'título' : 'texto'}: <em>${escH(x.t)}</em>${x.tipo === 'p' ? ' (não usar)' : ''}</li>`).join('') + (ms.length > 40 ? `<li>… e mais ${ms.length - 40}</li>` : '');
+    $('fcLista').querySelectorAll('li[data-i]').forEach(li => li.onclick = () => { const i = +li.dataset.i; selecionar(i); const ta = document.querySelectorAll('.sl')[i]; if (ta) ta.querySelector(`textarea[data-f="${li.dataset.f}"]`).focus(); });
+  }
+  $('iConferi').checked = !!E.conferido;
+  const sl = $('selo'); sl.classList.toggle('okd', !!E.conferido);
+  sl.textContent = E.conferido ? 'DADOS CONFERIDOS ✓' : E.origem === 'ia' ? 'GERADO POR IA — revisar' : 'CONTEÚDO DE EXEMPLO — revisar';
+}
+function liberarExport() {
+  if (E.conferido) return true;
+  const n = todasMarcas().length;
+  return confirm(`Você ainda não marcou “Conferi os dados deste carrossel”${n ? ` e há ${n} trecho${n > 1 ? 's' : ''} em vermelho` : ''}. Exportar mesmo assim?`);
+}
+
+/* ---- contadores por campo (usa o mesmo cálculo de fonte do desenho) ---- */
+const LIMITE = (papel, f) => f === 'titulo' ? 60 : (papel === 'gancho' || papel === 'cta') ? 120 : 220;
+function atualizarContadores() {
+  document.querySelectorAll('.sl').forEach((d, i) => {
+    const s = E.slides[i]; if (!s) return;
+    d.querySelectorAll('.cnt').forEach(c => {
+      const f = c.dataset.c, n = (s[f] || '').length, lim = LIMITE(s.papel, f);
+      let cls = n > lim ? 'av' : '', msg = `${n}/${lim} caracteres`;
+      if (n > lim) msg += ' · acima do recomendado';
+      if (f === 'texto') {
+        if (s._estoura) { cls = 'er'; msg += ' · NÃO CABE no slide: corte o texto'; }
+        else if (s._reduzido) { cls = cls || 'av'; msg += ` · fonte reduzida a ${Math.round((s._esc || 1) * 100)}% para caber`; }
+      }
+      c.className = 'cnt' + (cls ? ' ' + cls : ''); c.textContent = msg;
+    });
+  });
+}
+
+/* ---- ganchos ---- */
+function renderGanchos() {
+  const g = E.ganchos || [];
+  $('ganchos').innerHTML = g.length ? `<label style="margin-top:10px">Escolha o gancho (slide 1)</label>` + g.map((x, k) => `<div class="g ${E.ganchoSel === k ? 'on' : ''}" data-k="${k}"><small>OPÇÃO ${k + 1}</small><b>${escH(x.titulo)}</b>${escH(x.texto)}</div>`).join('') : '';
+  $('ganchos').querySelectorAll('.g').forEach(el => el.onclick = () => {
+    const k = +el.dataset.k, ig = E.slides.findIndex(s => s.papel === 'gancho'); if (ig < 0) return;
+    E.ganchoSel = k; E.slides[ig] = { papel: 'gancho', titulo: g[k].titulo, texto: g[k].texto }; E.atual = ig;
+    renderGanchos(); renderEditores(); atualizar();
+  });
+}
+
+/* ---- ações ---- */
+let ocupadoIA = false;
+function ocupado(v) { ocupadoIA = v; $('bIA').disabled = v; document.querySelectorAll('[data-rf]').forEach(b => b.disabled = v); }
+function status(msg, tipo) { $('stIA').textContent = msg; $('stIA').className = 'st' + (tipo ? ' ' + tipo : ''); }
+function garantirChave() {
+  const v = $('iChave').value.trim(); if (v) salvarChave(v);
+  if (lerChave()) return true;
+  $('cfg').open = true; $('iChave').focus();
+  status('Sem chave de API para ' + PROV[CFG.prov].nome + '. Cole a chave abaixo, ou use “Preencher estrutura” (funciona sem IA).', 'err');
+  return false;
+}
+async function gerarIA() {
+  if (ocupadoIA || !garantirChave()) return;
+  if (!String(E.tema || '').trim()) { status('Escreva o título do carrossel primeiro.', 'err'); $('iTema').focus(); return; }
+  const n = Math.max(5, Math.min(10, Math.round(+$('iN').value || 7))), papeis = MODELO.estruturaPorQuantidade[String(n)];
+  const editado = E.origem === 'ia' || E.slides.some(s => !/^\[|^O que é|^Pra levar|^Salva/.test(s.titulo));
+  if (editado && !confirm('Isso troca o texto de todos os slides pelo texto da IA. Continuar?')) return;
+  ocupado(true); status(`Gerando ${n} slides com ${PROV[CFG.prov].nome} (${modeloAtual()})…`);
+  try {
+    const r = validarCarrossel(reparar(await chamarIA(SISTEMA, promptCarrossel(papeis))), papeis);
+    const ig = papeis.indexOf('gancho');
+    if (ig >= 0) r.slides[ig] = { papel: 'gancho', titulo: r.ganchos[0].titulo, texto: r.ganchos[0].texto };
+    E.slides = r.slides; E.ganchos = r.ganchos; E.ganchoSel = 0; E.origem = 'ia'; E.conferido = false; E.atual = 0;
+    renderGanchos(); renderEditores(); atualizar();
+    const nm = todasMarcas().length;
+    status(`Pronto: ${n} slides e ${r.ganchos.length} opções de gancho. ${nm ? nm + ' trecho(s) em vermelho para conferir.' : 'Leia tudo antes de publicar.'}`, 'ok');
+  } catch (e) { status(e instanceof ErroIA ? e.message : 'Erro inesperado: ' + (e && e.message), 'err'); }
+  finally { ocupado(false); }
+}
+async function refazer(i) {
+  if (ocupadoIA || !garantirChave()) return;
+  ocupado(true); E.atual = i; atualizar(); status(`Refazendo o slide ${i + 1}…`);
+  try {
+    const x = validarSlide(reparar(await chamarIA(SISTEMA, promptRefazer(i))));
+    E.slides[i] = { papel: E.slides[i].papel, titulo: x.titulo, texto: x.texto }; E.conferido = false; if (E.origem !== 'ia') E.origem = 'ia';
+    renderEditores(); atualizar(); status(`Slide ${i + 1} refeito. Os outros não mudaram.`, 'ok');
+  } catch (e) { status(e instanceof ErroIA ? e.message : 'Erro inesperado: ' + (e && e.message), 'err'); }
+  finally { ocupado(false); }
+}
+
+/* ---- configuração ---- */
+function salvarChave(v) { try { localStorage.setItem(CH_K(CFG.prov), v); } catch (_) {} $('iChave').value = ''; sincCfg(); }
+function sincCfg() {
+  const P = PROV[CFG.prov], k = lerChave();
+  $('iProv').value = CFG.prov; $('iModelo').value = modeloAtual(); $('iModelo').placeholder = P.modelo;
+  $('corsProv').className = 'cors ' + (P.navegador ? 'sim' : 'nao');
+  $('corsProv').textContent = P.navegador ? '✓ Funciona direto do navegador (CORS testado em 29/10/2026).' : '✗ Não funciona direto do navegador (o provedor bloqueia CORS).';
+  $('iChave').placeholder = k ? `chave salva (…${k.slice(-4)})` : 'cole a chave aqui';
+  $('bEsquecer').disabled = !k;
+}
+function iniciarIA() {
+  $('iProv').innerHTML = Object.entries(PROV).map(([k, p]) => `<option value="${k}">${p.nome}${p.navegador ? '' : ' (não funciona no navegador)'}</option>`).join('');
+  $('iProv').onchange = e => { CFG.prov = e.target.value; salvarCfg(); sincCfg(); status(''); };
+  $('iModelo').onchange = e => { const v = e.target.value.trim(); if (v && v !== PROV[CFG.prov].modelo) CFG.modelos[CFG.prov] = v; else delete CFG.modelos[CFG.prov]; salvarCfg(); sincCfg(); };
+  $('bSalvarChave').onclick = () => { const v = $('iChave').value.trim(); if (!v) { status('Cole a chave no campo antes de salvar.', 'err'); return; } salvarChave(v); status('Chave salva só neste navegador.', 'ok'); };
+  $('bEsquecer').onclick = () => { try { localStorage.removeItem(CH_K(CFG.prov)); } catch (_) {} $('iChave').value = ''; sincCfg(); status('Chave de ' + PROV[CFG.prov].nome + ' apagada deste navegador.', 'ok'); };
+  $('bIA').onclick = gerarIA;
+  $('iConferi').onchange = e => {
+    if (e.target.checked) {
+      const pend = todasMarcas().filter(x => /^\[DADO/.test(x.t) || x.tipo === 'p').length;
+      if (pend && !confirm(`Ainda há ${pend} marcador(es) [DADO A CONFERIR] ou termo proibido no texto. Marcar como conferido mesmo assim?`)) { e.target.checked = false; return; }
+    }
+    E.conferido = e.target.checked; atualizar();
+  };
+  sincCfg();
+}
+
 /* ---------------- início: espera as fontes embutidas carregarem ---------------- */
 Promise.all(['800 40px PMont', '400 40px PInter', '700 40px PInter'].map(f => document.fonts.load(f))).finally(() => {
-  sincCores(); renderPaletas(); renderEditores(); renderTudo(); window.__pronto = true;
+  sincCores(); renderPaletas(); renderEditores(); renderGanchos(); iniciarIA(); renderTudo(); window.__pronto = true;
 });
-window.__carrossel = { get estado() { return E; }, renderSlide, zip, crc32 };
+window.__carrossel = { get estado() { return E; }, renderSlide, zip, crc32,
+  ia: { PROV, SISTEMA, reparar, validarCarrossel, validarSlide, marcas, gerarIA, refazer, promptCarrossel, promptRefazer, get cfg() { return CFG; } } };
 </script>
 </body>
 </html>
